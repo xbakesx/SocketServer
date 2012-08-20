@@ -3,12 +3,12 @@
  */
 package com.robotsidekick.example;
 
+import com.robotsidekick.server.SocketServer;
+import com.robotsidekick.server.unscramble.Word;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import com.robotsidekick.server.SocketServer;
-import com.robotsidekick.server.unscramble.Word;
 
 /**
  * @author alex
@@ -25,7 +25,7 @@ public final class TestClient
 
             SocketServer.writeString("clarinets\n", socket);
 
-            socket.getOutputStream().close();
+//            socket.getOutputStream().close();
 
             final Word result = SocketServer.readObject(socket, Word.class);
             if (result != null)
