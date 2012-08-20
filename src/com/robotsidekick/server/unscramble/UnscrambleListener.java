@@ -30,7 +30,6 @@ public final class UnscrambleListener implements SocketServerConnectionListener
     public void connected(final Socket socket)
     {
         final String letters = SocketServer.readLine(socket);
-        System.out.println("Connected: " + letters);
         if (letters != null)
         {
             new UnscrambleThread(letters, socket).run();
@@ -82,7 +81,6 @@ public final class UnscrambleListener implements SocketServerConnectionListener
 
             if (server.ready())
             {
-                System.out.println("server is ready");
                 final Word word = server.unscramble(letters);
                 if (word != null)
                 {
