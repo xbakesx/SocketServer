@@ -58,35 +58,24 @@ public class SocketServer
 
     public final void listen() throws IOException
     {
-        while (true)
+        Socket socket;
+        try
         {
-            Socket socket;
-            try
+            socket = server.accept();
+            if (listener != null)
             {
-                socket = server.accept();
-                if (listener != null)
-                {
-                    listener.connected(socket);
-                }
-                try
-                {
-                    socket.close();
-                }
-                catch (final IOException e)
-                {
-                    // ignore
-                }
+                listener.connected(socket);
             }
-            catch (final IOException e)
-            {
-                // Failed to listen...?
-                // TODO: log error
+        }
+        catch (final IOException e)
+        {
+            // Failed to listen...?
+            // TODO: log error
 
-                e.printStackTrace();
-                shutdown();
+            e.printStackTrace();
+            shutdown();
 
-                throw e;
-            }
+            throw e;
         }
     }
 

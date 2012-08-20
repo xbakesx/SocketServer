@@ -3,6 +3,7 @@
  */
 package com.robotsidekick.server.unscramble;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import com.robotsidekick.server.SocketServer;
@@ -29,10 +30,22 @@ public final class UnscrambleListener implements SocketServerConnectionListener
     public void connected(final Socket socket)
     {
         final String letters = SocketServer.readLine(socket);
+        System.out.println("Connected: " + letters);
         if (letters != null)
         {
             new UnscrambleThread(letters, socket).run();
-
+        }
+        else
+        {
+            try
+            {
+                System.out.println("closing socket");
+                socket.close();
+            }
+            catch (final IOException e)
+            {
+                // ignore
+            }
         }
     }
 
@@ -69,6 +82,7 @@ public final class UnscrambleListener implements SocketServerConnectionListener
 
             if (server.ready())
             {
+                System.out.println("server is ready");
                 final Word word = server.unscramble(letters);
                 if (word != null)
                 {
@@ -80,6 +94,16 @@ public final class UnscrambleListener implements SocketServerConnectionListener
                     System.out.println("Failed to unscramble " + letters);
                     SocketServer.writeObject(Word.NONE, socket);
                 }
+            }
+
+            try
+            {
+                System.out.println("closing socket");
+                socket.close();
+            }
+            catch (final IOException e)
+            {
+                // ignore
             }
         }
 

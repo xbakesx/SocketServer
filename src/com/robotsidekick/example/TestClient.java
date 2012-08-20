@@ -23,7 +23,7 @@ public final class TestClient
         {
             final Socket socket = new Socket("localhost", 54321);
 
-            SocketServer.writeString("clarinets", socket);
+            SocketServer.writeString("clarinets\n", socket);
 
             socket.getOutputStream().close();
 
