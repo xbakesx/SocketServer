@@ -40,7 +40,7 @@ public class SocketServer
         listener = iListener;
     }
 
-    public final void startup()
+    protected final void startup()
     {
         try
         {
@@ -79,7 +79,7 @@ public class SocketServer
         }
     }
 
-    public final void shutdown()
+    protected final void shutdown()
     {
         if (server != null)
         {

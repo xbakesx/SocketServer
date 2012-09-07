@@ -3,40 +3,53 @@
  */
 package com.robotsidekick.example;
 
-import java.io.IOException;
-import java.net.Socket;
-
-import com.robotsidekick.server.SocketServer;
-import com.robotsidekick.server.SocketServerConnectionListener;
+import com.robotsidekick.example.datastructures.Car;
+import com.robotsidekick.example.datastructures.Person;
+import com.robotsidekick.server.AbstractSocketServer;
 
 /**
- * @author alex
+ * @author baker
  *
  */
-public final class TestServer
+public final class TestServer extends AbstractSocketServer<Person, Car>
 {
+
+    public TestServer()
+    {
+        super(12345);
+    }
 
     public static void main(final String[] args)
     {
-        final SocketServer server = new SocketServer(4444);
-        server.startup();
-        server.setListener(new SocketServerConnectionListener()
-        {
-            @Override
-            public void connected(final Socket socket)
-            {
-                System.out.println(SocketServer.readString(socket));
-            }
-        });
+        new TestServer().start();
 
-        try
-        {
-            server.listen();
-        }
-        catch (final IOException e)
-        {
-            e.printStackTrace();
-        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onStartup()
+    {
+        System.out.println("Startup");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onShutdown()
+    {
+        System.out.println("Shutdown");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Car run(final Person input)
+    {
+        return new Car("Chevy", "Aveo");
     }
 
 }

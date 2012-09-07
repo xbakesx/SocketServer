@@ -7,26 +7,27 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import com.robotsidekick.example.datastructures.Car;
-import com.robotsidekick.example.datastructures.Person;
 import com.robotsidekick.server.SocketServer;
+import com.robotsidekick.server.unscramble.Word;
 
 /**
  * @author alex
  *
  */
-public final class TestClient
+public final class TestUnscrambleClient
 {
 
     public static void main(final String[] args)
     {
         try
         {
-            final Socket socket = new Socket("localhost", 12345);
+            final Socket socket = new Socket("localhost", 54321);
 
-            SocketServer.writeObject(new Person("Alex", "Baker"), socket);
+            SocketServer.writeString("clarinets\n", socket);
 
-            final Car result = SocketServer.readObject(socket, Car.class);
+            //            socket.getOutputStream().close();
+
+            final Word result = SocketServer.readObject(socket, Word.class);
             if (result != null)
             {
                 System.out.println("CLIENT: " + result.toString());
@@ -49,10 +50,4 @@ public final class TestClient
 
     }
 
-    // deelmmnrrstz
-    // beeehijmrrtw
 }
-// z
-// behijtw
-
-// eemrrt

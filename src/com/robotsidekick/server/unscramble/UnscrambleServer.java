@@ -22,7 +22,7 @@ import com.robotsidekick.server.SocketServer;
  * @author baker
  *
  */
-public final class UnscrambleServer extends SocketServer
+public class UnscrambleServer extends SocketServer
 {
     public static void main(final String[] args)
     {
@@ -57,19 +57,18 @@ public final class UnscrambleServer extends SocketServer
     private boolean ready;
     private final Map<String, List<String>> words;
 
-    public boolean ready()
+    public final boolean ready()
     {
         return ready;
     }
 
-    public Word unscramble(final String letters)
+    public final Word unscramble(final String letters)
     {
         if (!ready())
         {
             return null;
         }
-        final String alphabetized = alphabetize(letters);
-        final List<String> results = words.get(alphabetized);
+        final List<String> results = getWords(letters);
 
         System.out.println("Unscrambled: " + letters + " to " + toString(results));
 
@@ -81,6 +80,11 @@ public final class UnscrambleServer extends SocketServer
         {
             return null;
         }
+    }
+
+    protected final List<String> getWords(final String letters)
+    {
+        return words.get(alphabetize(letters));
     }
 
     private void init()
