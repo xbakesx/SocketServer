@@ -4,8 +4,10 @@
 package com.robotsidekick.server.anagram;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import com.robotsidekick.server.unscramble.UnscrambleServer;
+import com.robotsidekick.server.unscramble.Word;
 
 /**
  * @author baker
@@ -48,9 +50,19 @@ public final class AnagramServer extends UnscrambleServer
 
         System.out.println("Finding Anagrams of " + letters + " that are " + length + " letters long.");
 
-        final AnagramList results = new AnagramList();
+        AnagramList results = new AnagramList();
 
         permute(length, "", letters, results);
+
+        final HashMap<String, Boolean> x = new HashMap<String, Boolean>();
+
+        for (final Word result : results)
+        {
+            for (final String word : result.getWords())
+            {
+                x.put(word, true);
+            }
+        }
 
         if (results.size() == 0)
         {
@@ -58,6 +70,11 @@ public final class AnagramServer extends UnscrambleServer
         }
         else
         {
+            results = new AnagramList();
+            for (final String word : x.keySet())
+            {
+                results.add(new Word(word));
+            }
             return results;
         }
     }

@@ -25,7 +25,8 @@ public final class TestAnagramClient
 
             //            SocketServer.writeString("5eemrrt\n", socket);
             //            SocketServer.writeString("5deelmmnrrstz\n", socket);
-            SocketServer.writeString("5beeehijmrrtw\n", socket);
+            //            SocketServer.writeString("5beeehijmrrtw\n", socket);
+            SocketServer.writeString("5cdskmru\n", socket);
 
             //            socket.getOutputStream().close();
 

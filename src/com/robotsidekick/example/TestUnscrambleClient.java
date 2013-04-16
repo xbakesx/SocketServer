@@ -23,7 +23,7 @@ public final class TestUnscrambleClient
         {
             final Socket socket = new Socket("localhost", 54321);
 
-            SocketServer.writeString("clarinets\n", socket);
+            SocketServer.writeString("racebomn\n", socket);
 
             //            socket.getOutputStream().close();
 
